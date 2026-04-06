@@ -765,11 +765,14 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initialize previous summary for animation
   prevSummary = computeSummary(appState.transactions);
 
-  // ── Apply saved dark mode ──
-  if (appState.darkMode) {
-    document.body.classList.add('dark-mode');
-    document.getElementById('toggle-icon').textContent = '☀️';
+  // ── Apply dark mode (default to dark on first visit) ──
+  // The inline head script already applied .dark-mode to <html> to prevent flash.
+  // Now sync <body> and toggle icon with the resolved state.
+  if (!loaded) {
+    appState.darkMode = true; // default to dark on first visit
   }
+  document.body.classList.toggle('dark-mode', appState.darkMode);
+  document.getElementById('toggle-icon').textContent = appState.darkMode ? '☀️' : '🌙';
 
   // ── Apply saved role ──
   document.getElementById('role-select').value = appState.role;

@@ -19,6 +19,20 @@
 
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+  <!-- Theme Init (before CSS to prevent flash) -->
+  <script>
+    (function() {
+      try {
+        var saved = JSON.parse(localStorage.getItem('finDash_state'));
+        var isDark = saved && typeof saved.darkMode === 'boolean' ? saved.darkMode : true;
+        if (isDark) document.documentElement.classList.add('dark-mode');
+        // Save default on first visit
+        if (!saved) localStorage.setItem('finDash_state', JSON.stringify({ darkMode: true }));
+      } catch(e) {
+        document.documentElement.classList.add('dark-mode');
+      }
+    })();
+  </script>
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
